@@ -10,4 +10,4 @@ Create a simple _discord bot_ with [discord.py](https://discordpy.readthedocs.io
     - `bot's uptime` - how long the bot been up.
     - `bot's repo` - github repo link.
   - `hi` - will say `hello` or `hallo` randomly. 
-- Put any **sensitive information** about the bot inside `.env` using [os module](https://docs.python.org/3/library/os.html)
+- Put any **sensitive information** about the bot inside `.env` using [dotenv](https://pypi.org/project/python-dotenv/)
