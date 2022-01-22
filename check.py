@@ -15,25 +15,30 @@ def copy_example_file_to(filename):
 def create_file(filename):
   try:
     f = open(filename, "w")
-    print(f"Succesfully create `{filename}`")
-    copy_example_file_to(filename)
   except:
     err_message("can't create the file")
+  else:
+    f.close()
+    print(f"succesfully create `{filename}`")
+    copy_example_file_to(filename)
 
 def main(filename, yes):
   try:
     f = open(filename, "rt")
-    err_message(f"{filename} already exist")
   except:
     err_message("can't find the file")
     if not yes:
-      confirmation = input(f"do you want to create file with the name: {0}? [y/n] ")
+      confirmation = input(f"do you want to create file with the name: {filename}? [y/n] ")
       if confirmation == 'y':
         create_file(filename)
       else:
         sys.exit()
     else:
       create_file(filename)
+  else:
+    f.close()
+    print(f"{filename} already exist\ncopying `.env.example` to {filename}")
+    copy_example_file_to(filename)
 
 # I'm not sure if this is the best approach to handling params with python
 # But this works fine for now -
