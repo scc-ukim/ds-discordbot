@@ -10,7 +10,21 @@ def print_help():
   print("Copyright (c) 2022 - SCC UKIM\n\nUsage: run.py [option]\n\nOptions and arguments:\n-y\t: to skip the input confirmation incase the file is not exist yet\n-name=\t: name of the file that need to be check or create")
 
 def copy_example_file_to(filename):
-  print("Copying file - Not Implemented yet")
+  try:
+    old = open('.env.example', 'r')
+  except:
+    err_message("can't find the file")
+  else:
+    lines = old.read()
+    try:
+      new = open(filename, 'wt')
+    except:
+      err_message("can't open the {filename}")
+    else:
+      new.write(str(lines))
+      old.close()
+      new.close()
+      print(f"succesfully copying `.env.example` to {filename}")
 
 def create_file(filename):
   try:
