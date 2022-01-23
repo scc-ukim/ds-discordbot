@@ -63,14 +63,18 @@ if __name__ == "__main__":
   name = str(".env")
   skip = False
   
-  r = re.compile("^-name.")
-  new_args = list(filter(r.match, sys.argv))
-  
-  if len(new_args) != 0:
-    name = new_args[0][6:]
-  if '-y' in sys.argv:
-    skip = True
-  if '-h' in sys.argv:
-    print_help()
-    sys.exit()
+  if len(sys.argv) > 1:
+    r = re.compile("^-name.")
+    new_args = list(filter(r.match, sys.argv))
+    
+    if len(new_args) != 0:
+      name = new_args[0][6:]
+    elif '-y' in sys.argv:
+      skip = True
+    elif '-h' in sys.argv:
+      print_help()
+      sys.exit()
+    else:
+      print(f"Unknown option: {sys.argv[1]}\nUsage: run.py [option]\nTry `run.py -h` for more information.")
+      sys.exit()
   main(name, skip)
