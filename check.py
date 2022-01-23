@@ -7,24 +7,28 @@ def err_message(string):
 # I don't even know why do I implemented this function
 
 def print_help():
-  print("Copyright (c) 2022 - SCC UKIM\n\nUsage: run.py [option]\n\nOptions and arguments:\n-y\t: to skip the input confirmation incase the file is not exist yet\n-name=\t: name of the file that need to be check or create")
+  print("Usage: run.py [option]")
+  print("Options and arguments:")
+  print("-y\t: to skip the input confirmation incase the file is not exist yet")
+  print("-name=\t: name of the file that need to be check or create")
 
 def copy_example_file_to(filename):
   try:
-    old = open('.env.example', 'r')
+    old = open(".env.example", "r")
   except:
     err_message("can't find the file")
   else:
     lines = old.read()
     try:
-      new = open(filename, 'wt')
+      new = open(filename, "wt")
     except:
       err_message("can't open the {filename}")
     else:
       new.write(str(lines))
+      print(f"succesfully copying `.env.example` to {filename}")
+    finally:
       old.close()
       new.close()
-      print(f"succesfully copying `.env.example` to {filename}")
 
 def create_file(filename):
   try:
@@ -32,9 +36,10 @@ def create_file(filename):
   except:
     err_message("can't create the file")
   else:
-    f.close()
     print(f"succesfully create `{filename}`")
     copy_example_file_to(filename)
+  finally:
+    f.close()
 
 def main(filename, yes):
   try:
@@ -50,9 +55,15 @@ def main(filename, yes):
     else:
       create_file(filename)
   else:
+    print(f"{filename} already exist")
+    confirmation = input(f"do you want to override the existing file? [y/n] ")
+    if confirmation == 'y':
+      copy_example_file_to(filename)
+    else:
+      sys.exit()
+  finally:
     f.close()
-    print(f"{filename} already exist\ncopying `.env.example` to {filename}")
-    copy_example_file_to(filename)
+
 
 # I'm not sure if this is the best approach to handling params with python
 # But this works fine for now -
@@ -62,19 +73,22 @@ def main(filename, yes):
 if __name__ == "__main__":
   name = str(".env")
   skip = False
-  
+
   if len(sys.argv) > 1:
     r = re.compile("^-name.")
     new_args = list(filter(r.match, sys.argv))
     
     if len(new_args) != 0:
       name = new_args[0][6:]
-    elif '-y' in sys.argv:
+    if '-y' in sys.argv:
       skip = True
-    elif '-h' in sys.argv:
+    if '-h' or '--help' in sys.argv:
       print_help()
       sys.exit()
-    else:
-      print(f"Unknown option: {sys.argv[1]}\nUsage: run.py [option]\nTry `run.py -h` for more information.")
-      sys.exit()
+    
+    if not '-y' in sys.argv: 
+      if not '-h' in sys.argv:
+        if not len(new_args) != 0:
+          print(f"Unknown option: {sys.argv[1]}\nUsage: run.py [option]\nTry `run.py -h` for more information.")
+          sys.exit()
   main(name, skip)
