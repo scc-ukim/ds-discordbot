@@ -45,10 +45,6 @@ async def on_message(message):
             response = f'This is your random number: {random.randrange(1000000)}'
             await message.channel.send(response)
             return
-        elif user_message.lower() == 'Help':
-            await message.channel.send(f'No.Hp :082198345926 , {username} ')
-            await message.channel.send(f'Email :leiparyharfely@gmail.com, {username}')
-            return
         if user_message.lower() == '!anywhere':
             await message.channel.send('This can be used anywhere!')
             return
