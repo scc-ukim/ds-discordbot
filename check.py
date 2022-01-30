@@ -7,10 +7,11 @@ def err_message(string):
 # I don't even know why do I implemented this function
 
 def print_help():
-  print("Usage: run.py [option]")
+  print("Usage: check.py [option]")
   print("Options and arguments:")
-  print("-y\t: to skip the input confirmation incase the file is not exist yet")
-  print("-name=\t: name of the file that need to be check or create")
+  print("-y\t\t: to skip the input confirmation incase \n\t\t  the file is not exist yet")
+  print("-name=\t\t: name of the file that need to be check or create")
+  print("-h, --help\t: to show all the options")
 
 def copy_example_file_to(filename):
   try:
@@ -73,7 +74,7 @@ def main(filename, yes):
 if __name__ == "__main__":
   name = str(".env")
   skip = False
-
+  
   if len(sys.argv) > 1:
     r = re.compile("^-name.")
     new_args = list(filter(r.match, sys.argv))
@@ -82,13 +83,13 @@ if __name__ == "__main__":
       name = new_args[0][6:]
     if '-y' in sys.argv:
       skip = True
-    if '-h' or '--help' in sys.argv:
+    if '-h' in sys.argv or '--help' in sys.argv:
       print_help()
       sys.exit()
     
     if not '-y' in sys.argv: 
-      if not '-h' in sys.argv:
+      if not '-h' in sys.argv or not '--help' in sys.argv:
         if not len(new_args) != 0:
-          print(f"Unknown option: {sys.argv[1]}\nUsage: run.py [option]\nTry `run.py -h` for more information.")
+          print(f"Unknown option: {sys.argv[1]}\nUsage: check.py [option]\nTry `check.py -h` for more information.")
           sys.exit()
   main(name, skip)
