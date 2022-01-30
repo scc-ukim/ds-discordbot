@@ -4,6 +4,17 @@ import re
 def err_message(string):
   print(f"Err: {string}")
 
+
+def options_handler(options):
+  print(len(options))
+  print(options)
+  for option in options[1:]:
+    if option == '-y':
+      print(option)
+
+    if option == '-h' or option == '--help':  
+      print(option)
+      
 # I don't even know why do I implemented this function
 
 def print_help():
@@ -74,6 +85,8 @@ def main(filename, yes):
 if __name__ == "__main__":
   name = str(".env")
   skip = False
+
+  # options_handler(sys.argv)
   
   if len(sys.argv) > 1:
     r = re.compile("^-name.")
