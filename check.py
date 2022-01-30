@@ -1,3 +1,10 @@
+# Copyright (c) 2022  SCCUKIM
+#
+# Check.py
+#
+# a simple python script to look for any file based on user input [default `.env`]
+# and copying `.env.example` to that file.
+
 import sys
 import re
 
@@ -14,7 +21,7 @@ def options_handler(options):
 
     if option == '-h' or option == '--help':  
       print(option)
-      
+
 # I don't even know why do I implemented this function
 
 def print_help():
