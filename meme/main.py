@@ -5,7 +5,7 @@ from dotenv import dotenv_values
 import json
 
 config = dotenv_values(".env")
-prefix = config['BOT_PREFIX']
+prefix = config['BOT_MEME_PREFIX']
 bot = discord.Client()
 
 
