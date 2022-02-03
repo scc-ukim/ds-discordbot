@@ -37,4 +37,4 @@ async def on_message(message):
     )).set_image(url=f"{data['url']}")
     await message.reply(embed=meme)
 
-bot.run(config['BOT_TOKEN'])
+bot.run(config['BOT_MEME_TOKEN'])
