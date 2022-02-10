@@ -1,12 +1,9 @@
 import discord
 import random
-from  discord.ui import Button,View
 from discord.ext import commands, tasks
 from itertools import cycle
 
 status = cycle(['We Are Work','We are One'])
-
-token = 'OTM0NDM2NzMwNzcyMjkxNTg0.YewEBQ.Y-mKAQVp63S2wtJdJymPmthJtJw'
 client = discord.Client()
 
 bot = commands.Bot(command_prefix=">>>")
@@ -30,9 +27,6 @@ async def on_message(message):
 
     if message.channel.name == 'general':
         if user_message.lower() == 'hello':
-            button1 = Button(label="Click me!", style=discord.ButtonStyle.green,emoji="<:Sad:878479543764127744>")
-            view = View()
-            view.add_item(button)
             await message.channel.send(f'Hello {username}!')
             return
         elif user_message.lower() == 'yourname':
